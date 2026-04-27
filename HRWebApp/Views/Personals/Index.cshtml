@@ -1,0 +1,95 @@
+﻿@model PagedResult<HRWebApp.Models.Personal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="module">
+    <div class="module-head">
+        <h3>Personals - @Html.ActionLink("Create New", "Create")</h3>
+    </div>
+
+    <div class="module-body table">
+        <table cellpadding="0" cellspacing="0" border="0"
+               class="datatable-1 table table-bordered table-striped display"
+               width="100%">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>City</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Gender</th>
+                    <th>Shareholder</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr class="odd gradeX">
+                        <td>
+                            @item.First_Name @item.Last_Name
+                        </td>
+                        <td>@item.City</td>
+                        <td>@item.Email</td>
+                        <td>@item.Phone_Number</td>
+                        <td class="center">
+                            @(item.Gender == true ? "Male" : "Female")
+                        </td>
+                        <td class="center">
+                            @(item.Shareholder_Status ? "Yes" : "No")
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Employee_ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Employee_ID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- PHÂN TRANG -->
+<div class="text-center mt-3">
+
+    <p>
+        Trang <b>@Model.CurrentPage</b> / <b>@Model.TotalPages</b>
+        (Tổng: @Model.TotalRecords)
+    </p>
+
+    <div class="btn-group">
+
+        @if (Model.CurrentPage > 1)
+        {
+            <a class="btn btn-outline-primary"
+               href="@Url.Action("Index", new { page = Model.CurrentPage - 1 })">
+                « Prev
+            </a>
+        }
+
+        @if (Model.CurrentPage < Model.TotalPages)
+        {
+            <a class="btn btn-outline-primary"
+               href="@Url.Action("Index", new { page = Model.CurrentPage + 1 })">
+                Next »
+            </a>
+        }
+
+    </div>
+
+    <form method="get" action="@Url.Action("Index")"
+          class="d-inline-block ml-3">
+
+        <input type="number" name="page"
+               min="1" max="@Model.TotalPages"
+               value="@Model.CurrentPage"
+               class="form-control d-inline-block"
+               style="width:70px;" />
+
+        <button class="btn btn-success">Go</button>
+    </form>
+
+</div>
