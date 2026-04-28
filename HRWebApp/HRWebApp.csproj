@@ -160,6 +160,7 @@
     <Compile Include="Controllers\JobHistoryController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PersonalsController.cs" />
+    <Compile Include="Controllers\SsoController.cs" />
     <Compile Include="DBWatchdog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
